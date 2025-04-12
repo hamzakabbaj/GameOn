@@ -28,5 +28,4 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-modalbg.addEventListener("click", closeModal);
 closeBtn.addEventListener("click", closeModal);
