@@ -61,7 +61,7 @@ function createErrorSpan(input, error_message) {
   errorSpan.id = `${input.id}-error`;
   errorSpan.classList.add("error-message");
   errorSpan.style.display = "block";
-  errorSpan.style.color = "red";
+  errorSpan.style.color = "#FF4E60";
   errorSpan.style.fontSize = "10px";
   errorSpan.style.position = "relative";
   errorSpan.textContent = error_message;
@@ -99,7 +99,7 @@ function validate() {
   });
 
   error_inputs = [];
-  const red_border = "2px solid red";
+  const red_border = "2px solid #FF4E60";
   // Validate first name
   if (!first.value || first.value.length < 2) {
     error_inputs.push(first);
@@ -164,12 +164,40 @@ function validate() {
 
   if (error_inputs.length > 0) {
     return false;
+  } else {
+    localStorage.removeItem("formData");
+    // Remove form element
+    const form = document.querySelector("form");
+    form.remove();
+
+    const modal_body = document.querySelector(".modal-body");
+    modal_body.style.height = "80vh";
+    modal_body.style.display = "flex";
+    modal_body.style.flexDirection = "column";
+    modal_body.style.justifyContent = "center";
+    modal_body.style.alignItems = "center";
+
+    // Create thank you message
+    const thank_you_message = document.createElement("p");
+    thank_you_message.textContent = "Merci pour votre inscription !";
+    thank_you_message.style.fontSize = "36px";
+    thank_you_message.style.fontWeight = "400";
+    thank_you_message.style.fontFamily = "DM Sans";
+    thank_you_message.style.textAlign = "center";
+    modal_body.appendChild(thank_you_message);
+
+    // Create close button
+    const close_button = document.createElement("button");
+    close_button.classList.add("btn-submit", "btn-signup");
+    close_button.style.position = "absolute";
+    close_button.style.bottom = "20px";
+    close_button.style.padding = "12px 82px";
+    close_button.style.fontSize = "1rem";
+    close_button.textContent = "Fermer";
+    close_button.addEventListener("click", closeModal);
+    modal_body.appendChild(close_button);
   }
-
-  localStorage.removeItem("formData");
 }
-
-localStorage.removeItem("formData");
 
 // Load form data from local storage
 const formDataInput = JSON.parse(localStorage.getItem("formData"));
