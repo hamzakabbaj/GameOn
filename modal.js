@@ -62,9 +62,10 @@ function createErrorSpan(input, error_message) {
   errorSpan.classList.add("error-message");
   errorSpan.style.display = "block";
   errorSpan.style.color = "red";
-  errorSpan.style.fontSize = "0.8rem";
+  errorSpan.style.fontSize = "10px";
   errorSpan.style.position = "relative";
   errorSpan.textContent = error_message;
+  console.log(input);
   input.parentNode.insertBefore(errorSpan, input.nextSibling);
 }
 
@@ -90,6 +91,12 @@ function validate() {
     notification: notification.checked,
   };
   localStorage.setItem("formData", JSON.stringify(formDataInput));
+
+  // Clear error messages
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach((message) => {
+    message.remove();
+  });
 
   error_inputs = [];
   const red_border = "2px solid red";
@@ -130,8 +137,9 @@ function validate() {
 
   // Validate location
   if (!selectedLocation) {
-    error_inputs.push(location);
-    createErrorSpan(location, "Veuillez sélectionner une ville.");
+    // error_inputs.push(location);
+    const location_container = document.getElementById("location-container");
+    createErrorSpan(location_container, "Veuillez sélectionner une ville.");
   }
 
   // Validate terms
@@ -160,6 +168,8 @@ function validate() {
 
   localStorage.removeItem("formData");
 }
+
+localStorage.removeItem("formData");
 
 // Load form data from local storage
 const formDataInput = JSON.parse(localStorage.getItem("formData"));
