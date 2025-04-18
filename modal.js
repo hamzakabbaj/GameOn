@@ -79,6 +79,12 @@ function validate() {
   const selectedLocation = getSelectedLocation();
   const birthdate = document.getElementById("birthdate");
 
+  [first, last, email, quantity, birthdate].forEach((input) => {
+    input.style.border = "none";
+  });
+
+  terms.parentElement.querySelector(".checkbox-icon").style.border = "none";
+
   // Save to local storage
   const formDataInput = {
     first: first.value,
