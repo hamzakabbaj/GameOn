@@ -439,7 +439,7 @@ input[data-error]::after {
 .hero-headline {
   font-size: 6rem;
   font-weight: normal;
-  /* white-space: nowrap; */
+  white-space: nowrap;
 }
 .hero-text {
   width: 146%;
@@ -513,6 +513,7 @@ footer {
 
   .hero-headline {
     font-size: 40px;
+    white-space: normal;
   }
 
   .hero-content::after {
