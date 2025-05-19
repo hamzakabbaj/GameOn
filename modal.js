@@ -80,6 +80,7 @@ function createErrorSpan(input, error_message) {
  * @returns {boolean} Returns true if all validations pass, false otherwise
  */
 function validate() {
+  // Get form elements
   const first = document.getElementById("first");
   const last = document.getElementById("last");
   const email = document.getElementById("email");
@@ -89,13 +90,21 @@ function validate() {
   const selectedLocation = getSelectedLocation();
   const birthdate = document.getElementById("birthdate");
 
+  // Reset input borders to default
   [first, last, email, quantity, birthdate].forEach((input) => {
     input.style.border = "none";
   });
 
+  // Reset checkbox border to default
   terms.parentElement.querySelector(".checkbox-icon").style.border = "none";
 
-  // Save to local storage
+  // Clear error messages
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach((message) => {
+    message.remove();
+  });
+
+  // Save form data to local storage
   const formDataInput = {
     first: first.value,
     last: last.value,
@@ -108,14 +117,10 @@ function validate() {
   };
   localStorage.setItem("formData", JSON.stringify(formDataInput));
 
-  // Clear error messages
-  const errorMessages = document.querySelectorAll(".error-message");
-  errorMessages.forEach((message) => {
-    message.remove();
-  });
-
+  // Reset error inputs
   error_inputs = [];
   const red_border = "2px solid #FF4E60";
+
   // Validate first name
   if (!first.value || first.value.length < 2) {
     error_inputs.push(first);
@@ -153,7 +158,6 @@ function validate() {
 
   // Validate location
   if (!selectedLocation) {
-    // error_inputs.push(location);
     const location_container = document.getElementById("location-container");
     createErrorSpan(location_container, "Veuillez sélectionner une ville.");
   }
@@ -174,6 +178,7 @@ function validate() {
     createErrorSpan(birthdate, "Veuillez entrer une date de naissance valide.");
   }
 
+  // Set red border to error inputs
   error_inputs.forEach((input) => {
     input.style.border = red_border;
   });
@@ -186,6 +191,7 @@ function validate() {
     const form = document.querySelector("form");
     form.remove();
 
+    // Set modal body to thank you message
     const modal_body = document.querySelector(".modal-body");
     modal_body.style.height = "80vh";
     modal_body.style.display = "flex";
@@ -200,6 +206,8 @@ function validate() {
     thank_you_message.style.fontWeight = "400";
     thank_you_message.style.fontFamily = "DM Sans";
     thank_you_message.style.textAlign = "center";
+
+    // Append thank you message to modal body
     modal_body.appendChild(thank_you_message);
 
     // Create close button
