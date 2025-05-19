@@ -246,7 +246,7 @@ input[data-error]::after {
   display: block;
   width: 20px;
   height: 20px;
-  border: 2px solid #279e7a;
+  border: 1px solid #c4c4c4;
   border-radius: 50%;
   text-indent: 29px;
   white-space: nowrap;
@@ -487,6 +487,10 @@ footer {
   main {
     padding: 0px;
     margin: 0px;
+  }
+
+  .content {
+    margin: 18% auto;
   }
 
   .topnav {
