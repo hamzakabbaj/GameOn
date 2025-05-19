@@ -20,17 +20,19 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
-// NEW CODE
+// ------------------------- FUNCTIONS -------------------------
 
-const closeBtn = document.querySelector(".close");
-
+/**
+ * Closes the modal
+ */
 function closeModal() {
   modalbg.style.display = "none";
 }
 
-closeBtn.addEventListener("click", closeModal);
-
-// FORM VALIDATION
+/**
+ * Retrieves the selected location from the form
+ * @returns {string|null} The selected location value or null if no location is selected
+ */
 function getSelectedLocation() {
   const locations = document.querySelectorAll('input[name="location"]');
   let selectedLocation = null;
@@ -42,6 +44,10 @@ function getSelectedLocation() {
   return selectedLocation;
 }
 
+/**
+ * Sets the selected location in the form
+ * @param {string} selected_location - The selected location value
+ */
 function setSelectedLocation(selected_location) {
   const locations = document.querySelectorAll('input[name="location"]');
   locations.forEach((location) => {
@@ -51,11 +57,11 @@ function setSelectedLocation(selected_location) {
   });
 }
 
-const form = document.querySelector("form");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-});
-
+/**
+ * Creates an error message span element
+ * @param {Element} input - The input element to associate with the error message
+ * @param {string} error_message - The error message to display
+ */
 function createErrorSpan(input, error_message) {
   const errorSpan = document.createElement("p");
   errorSpan.id = `${input.id}-error`;
@@ -69,6 +75,10 @@ function createErrorSpan(input, error_message) {
   input.parentNode.insertBefore(errorSpan, input.nextSibling);
 }
 
+/**
+ * Validates the form inputs and displays error messages if validation fails
+ * @returns {boolean} Returns true if all validations pass, false otherwise
+ */
 function validate() {
   const first = document.getElementById("first");
   const last = document.getElementById("last");
@@ -204,6 +214,18 @@ function validate() {
     modal_body.appendChild(close_button);
   }
 }
+
+// ------------------------- SCRIPT -------------------------
+
+// Close modal when clicking on the close button
+const closeBtn = document.querySelector(".close");
+closeBtn.addEventListener("click", closeModal);
+
+// Prevent form default submission
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
 
 // Load form data from local storage
 const formDataInput = JSON.parse(localStorage.getItem("formData"));
